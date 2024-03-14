@@ -1,3 +1,15 @@
+local resourceName = "AJDeathSystem"
+
+Citizen.CreateThread(function()
+    local currentResourceName = GetCurrentResourceName()
+
+    if currentResourceName ~= resourceName then
+        print("^1[ERROR]^7 Incorrect resource name detected. Shutting down the resource...")
+        StopResource(currentResourceName)
+        return
+    end
+end)
+
 local respawnTimers = {}
 local reviveTimers = {}
 
