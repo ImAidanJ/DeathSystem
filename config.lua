@@ -1,6 +1,8 @@
 Config {}
 
 Config.Death {
+    ScreenMessage = true, -- Displays the text on screen (I recommend keeping one true and the other false so it does not send both)
+    ChatMessage = false, -- Displays the text in chat (I recommend keeping one true and the other false so it does not send both)
     DeathMessage = "You have died!! You may respawn in 60 seconds or revive in 120 seconds.",
 }
 
