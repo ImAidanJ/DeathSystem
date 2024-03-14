@@ -1,10 +1,14 @@
-local resourceName = "AJDeathSystem"
+-- TODO: Add a system so admins can use the commands to respawn and revive other.
+-- > Most likey will us different commands so I can add the options to revive a user by there id.
+
 
 Citizen.CreateThread(function()
+    local resourceName = "AJDeathSystem"
     local currentResourceName = GetCurrentResourceName()
 
     if currentResourceName ~= resourceName then
         print("^1[ERROR]^7 Incorrect resource name detected. Shutting down the resource...")
+        print("^1[ERROR]^7 Resource must be named 'AJDeathSystem' to work.")
         StopResource(currentResourceName)
         return
     end
