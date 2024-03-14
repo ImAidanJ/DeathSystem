@@ -26,6 +26,7 @@ RegisterCommand("respawn", function(source, args, rawCommand)
     if not Config.Respawn.EnableAcePerms or IsPlayerAceAllowed(source, Config.Respawn.AcePermString) then
         if not respawnTimers[source] then
             respawnTimers[source] = Config.Respawn.RespawnTime
+            TriggerClientEvent('AJ:Respawn', source)
         else
             TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {"^4[AJ:DeathSystem]^0 You are already waiting to respawn."}})
         end
@@ -34,8 +35,40 @@ RegisterCommand("respawn", function(source, args, rawCommand)
     end
 end, false)
 
--- Below is the Revive Logic
 
+-- Below is the Revive Logic
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(10000) -- Wait 10 seconds
+        for source, timer in pairs(reviveTimers) do
+            if timer > 0 then
+                local remainingTime = timer - 10
+                if remainingTime <= 0 then
+                    if GetPlayerPed(source) == 0 then -- Check if player is dead
+                        TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {"^4[AJ:DeathSystem]^0 You can now revive using /revive."}})
+                    end
+                    reviveTimers[source] = nil
+                else
+                    reviveTimers[source] = remainingTime
+                    TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {"^4[AJ:DeathSystem]^0 Revive available in " .. remainingTime .. " seconds."}})
+                end
+            end
+        end
+    end
+end)
+
+RegisterCommand("revive", function(source, args, rawCommand) 
+    if not Config.Revive.EnableAcePerms or IsPlayerAceAllowed(source, Config.Revive.AcePermString) then
+        if not reviveTimers[source] then
+            reviveTimers[source] = Config.Revive.ReviveTime
+            TriggerClientEvent('AJ:Revive', source)
+        else
+            TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {"^4[AJ:DeathSystem]^0 You are already waiting to revive."}})
+        end
+    else
+        TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {"^4[AJ:DeathSystem]^0 You do not have permission to use this command."}})
+    end
+end, false)
 
 
 -- Credits --
