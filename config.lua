@@ -1,28 +1,27 @@
 Config {}
 
 Config.Death {
-    ScreenMessage = true, -- Displays the text on screen (I recommend keeping one true and the other false so it does not send both)
-    ChatMessage = false, -- Displays the text in chat (I recommend keeping one true and the other false so it does not send both)
+    ScreenMessage = true, -- Displays DeathMessage on Screen | Chat Message by Default
     DeathMessage = "You have died!! You may respawn in 60 seconds or revive in 120 seconds.",
 }
 
 Config.Revive {
-EnableAcePerms = true, -- Enable perms for admins to revive instanly or to revive others.
-AcePermString = "AJ.Revive", -- The ace perm string that will be added to you server.cfg
+EnableAcePerms = true, -- Addes ACE perm options for admins to bypass revive timer
+AcePermString = "AJ.Revive", -- The ACE perm string that will be added to your server.cfg
 
-ReviveTime = 120, -- The amount of time until revive becomes avalible
+ReviveTime = 120, -- Amount of time before a player can revive (Seconds)
 ReviveMessage = "You have been revived!",
 }
 
 Config.Respawn {
-EnableAcePerms = true, -- Enable perms for admins to respawn instanly or to respawn others.
-AcePermString = "AJ.Respawn", -- The ace perm string that will be added to you server.cfg
+EnableAcePerms = true, -- Addes ACE perm options for admins to bypass respawn timer
+AcePermString = "AJ.Respawn", -- The ACE perm string that will be added to your server.cfg
 
-RespawnTime = 60, -- The amount of time until respawn becomes avalible (Seconds)
+RespawnTime = 60, -- Amount of time before a player can respawn (Seconds)
 RespawnMessage = "You have been respawned!",
 }
 
-Config.Locations {
+Config.Locations { -- Spawn Locations for Respawn
     {
     "name": "Spawn1",
     "x": 123.45,
@@ -35,4 +34,16 @@ Config.Locations {
     "y": 78.91,
     "z": 20.21
   },
+}
+
+Config.Logs {
+  RespawnLog = true, -- Adds logs for players using /respawn
+  ReviveLog = true, -- Adds logs for players using /revive
+  AdminRespawnLog = true, -- Adds logs for admins using /adrespawn
+  AdminReviveLog = true, -- Adds logs for admins using /adrevive
+
+  Webhook = "WEBHOOK_HERE" -- Paste your discord webhook here for logs
+  IncludeIP = true, -- Include players IP in the log embed
+  IncludeID = true, -- Include players ID in the log embed
+  IncludeLicense = true, -- Include players license in the log embed
 }
