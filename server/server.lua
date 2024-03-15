@@ -86,6 +86,61 @@ RegisterCommand("revive", function(source, args, rawCommand)
     end
 end, false)
 
+-- Admin Respawn Logic
+RegisterCommand("adrespawn", function(source, args, rawCommand)
+    local targetPlayer = tonumber(args[1])
+    if not Config.Revive.EnableAcePerms or IsPlayerAceAllowed(source, Config.Revive.AcePermString) then
+        if targetPlayer and respawnTimers[targetPlayer] == nil then
+            respawnTimers[targetPlayer] = Config.Respawn.RespawnTime
+            TriggerClientEvent('AJ:Respawn', targetPlayer)
+            TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {"^4[AJ:DeathSystem]^0 Player with source " .. targetPlayer .. " respawned."}})
+        else
+            TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {"^4[AJ:DeathSystem]^0 Invalid player source or player is already waiting to respawn."}})
+        end
+    else
+        TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {"^4[AJ:DeathSystem]^0 You do not have permission to use this command."}})
+    end
+end, false)
+
+-- Add chat suggestion for player ID in adrespawn command
+AddEventHandler('onClientResourceStart', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then
+      return
+    end
+
+    TriggerEvent('chat:addSuggestion', '/adrespawn', 'Respawn a player by their ID', {
+      { name="Player ID", help="The ID of the player you want to respawn" }
+    })
+end)
+
+-- Admin Revive Logic
+RegisterCommand("adrevive", function(source, args, rawCommand)
+    local targetPlayer = tonumber(args[1])
+    if not Config.Revive.EnableAcePerms or IsPlayerAceAllowed(source, Config.Revive.AcePermString) then
+        if targetPlayer and reviveTimers[targetPlayer] == nil then
+            reviveTimers[targetPlayer] = Config.Revive.ReviveTime
+            TriggerClientEvent('AJ:Revive', targetPlayer)
+            TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {"^4[AJ:DeathSystem]^0 Player with source " .. targetPlayer .. " revived."}})
+        else
+            TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {"^4[AJ:DeathSystem]^0 Invalid player source or player is already waiting to revive."}})
+        end
+    else
+        TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {"^4[AJ:DeathSystem]^0 You do not have permission to use this command."}})
+    end
+end, false)
+
+-- Add chat suggestion for player ID in adrevive command
+AddEventHandler('onClientResourceStart', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then
+      return
+    end
+
+    TriggerEvent('chat:addSuggestion', '/adrevive', 'Revive a player by their ID', {
+      { name="Player ID", help="The ID of the player you want to revive" }
+    })
+end)
+
+
 
 -- Credits --
 -- Don't be weird.. Leave my Credits!!
