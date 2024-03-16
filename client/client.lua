@@ -5,9 +5,15 @@
 -- |___|_| |_| |_/_/   \_\_|\__,_|\__,_|_| |_|\___/ 
 -- 
 
+
+
 local Prefix = "^4[AJ:DeathSystem]^0"
+local resourceName = "AJDeathSystem"
+local Version = "1.0.0"
 
 
+
+ -- Checks if User has Screen Messages on or Chat Message
 if Config.Death.ScreenMessage then
     RegisterNetEvent('AJ:playerDied')
     AddEventHandler('AJ:playerDied', function()
@@ -23,9 +29,12 @@ else
 end
 
 
+
 local isPlayerDead = false
 
--- Respawn Event Logic
+
+
+ -- Respawn Event called when /respawn or /adrespawn is used
 RegisterNetEvent('AJ:Respawn')
 AddEventHandler("AJ:Respawn", function()
     if isPlayerDead then
@@ -44,7 +53,9 @@ AddEventHandler("AJ:Respawn", function()
     end
 end)
 
--- Revive Event Logic
+
+
+ -- Revive Event called when /revive or /adrevive is used
 RegisterNetEvent('AJ:Revive')
 AddEventHandler("AJ:Revive", function()
     if isPlayerDead then
@@ -62,18 +73,21 @@ AddEventHandler("AJ:Revive", function()
         })
     end
 end)
-
 AddEventHandler('playerDied', function()
     isPlayerDead = true
 end)
 
--- Gets coords from config
+
+
+ -- Grabs a random location from the locations list in the config
 function GetRandomRespawnCoords()
     local randomIndex = math.random(1, #Config.Locations)
     return Config.Locations[randomIndex]
 end
 
 
+
+ -- Log Event called when any command is used
 RegisterNetEvent('AJ:LOG')
 AddEventHandler('AJ:LOG', function(CommandName)
     local playerId = source

@@ -5,12 +5,15 @@
 -- |___|_| |_| |_/_/   \_\_|\__,_|\__,_|_| |_|\___/ 
 -- 
 
+
+
 local Prefix = "^4[AJ:DeathSystem]^0"
 local resourceName = "AJDeathSystem"
 local Version = "1.0.0"
 
--- Checks if Script is named AJDeathSystem
 
+
+ -- Check to see if script is named properly
 Citizen.CreateThread(function()
     local currentResourceName = GetCurrentResourceName()
 
@@ -23,19 +26,21 @@ Citizen.CreateThread(function()
 end)
 
 
+
 local respawnTimers = {}
 local reviveTimers = {}
 
 
--- Below is the Respawn Logic
+
+ -- Respawn Command
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(10000) -- Wait 10 seconds
+        Citizen.Wait(10000)
         for source, timer in pairs(respawnTimers) do
             if timer > 0 then
                 local remainingTime = timer - 10
                 if remainingTime <= 0 then
-                    if GetPlayerPed(source) ~= 0 then -- Check if player is still alive
+                    if GetPlayerPed(source) ~= 0 then
                         TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {Prefix.." You can now respawn using /respawn."}})
                     end
                     respawnTimers[source] = nil
@@ -47,7 +52,6 @@ Citizen.CreateThread(function()
         end
     end
 end)
-
 
 RegisterCommand("respawn", function(source, args, rawCommand) 
     if not Config.Respawn.EnableAcePerms or IsPlayerAceAllowed(source, Config.Respawn.AcePermString) then
@@ -69,15 +73,15 @@ end, false)
 
 
 
--- Below is the Revive Logic
+ -- Revive Command
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(10000) -- Wait 10 seconds
+        Citizen.Wait(10000)
         for source, timer in pairs(reviveTimers) do
             if timer > 0 then
                 local remainingTime = timer - 10
                 if remainingTime <= 0 then
-                    if GetPlayerPed(source) == 0 then -- Check if player is dead
+                    if GetPlayerPed(source) == 0 then
                         TriggerClientEvent("chat:addMessage", source, {template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(46, 235, 94, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>', args = {Prefix.." You can now revive using /revive."}})
                     end
                     reviveTimers[source] = nil
@@ -89,8 +93,6 @@ Citizen.CreateThread(function()
         end
     end
 end)
-
-
 
 RegisterCommand("revive", function(source, args, rawCommand) 
     if not Config.Revive.EnableAcePerms or IsPlayerAceAllowed(source, Config.Revive.AcePermString) then
@@ -112,8 +114,7 @@ end, false)
 
 
 
-
--- Admin Respawn Logic
+ -- Admin Respawn Command 
 RegisterCommand("adrespawn", function(source, args, rawCommand)
     local targetPlayer = tonumber(args[1])
     if not Config.Respawn.EnableAcePerms or IsPlayerAceAllowed(source, Config.Respawn.AcePermString) then
@@ -132,13 +133,10 @@ RegisterCommand("adrespawn", function(source, args, rawCommand)
     end
 end, false)
 
-
--- Add chat suggestion for player ID in adrespawn command
 AddEventHandler('onClientResourceStart', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then
       return
     end
-
     TriggerEvent('chat:addSuggestion', '/adrespawn', 'Respawn a player by their ID', {
       { name="Player ID", help="The ID of the player you want to respawn" }
     })
@@ -146,7 +144,7 @@ end)
 
 
 
--- Admin Revive Logic
+ -- Admin Revive Command
 RegisterCommand("adrevive", function(source, args, rawCommand)
     local targetPlayer = tonumber(args[1])
     if not Config.Revive.EnableAcePerms or IsPlayerAceAllowed(source, Config.Revive.AcePermString) then
@@ -165,13 +163,10 @@ RegisterCommand("adrevive", function(source, args, rawCommand)
     end
 end, false)
 
-
--- Add chat suggestion for player ID in adrevive command
 AddEventHandler('onClientResourceStart', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then
       return
     end
-
     TriggerEvent('chat:addSuggestion', '/adrevive', 'Revive a player by their ID', {
       { name="Player ID", help="The ID of the player you want to revive" }
     })
@@ -182,5 +177,5 @@ end)
 -- Credits --
 -- Don't be weird.. Leave my Credits!!
 print(Prefix.." Death System by ImAidanJ")
-print(Prefix.." Discord: https:--discord.gg/cGdUjQQnNT")
+print(Prefix.." Discord: discord.gg/cGdUjQQnNT")
 print(Prefix.." Version: "..Version)
