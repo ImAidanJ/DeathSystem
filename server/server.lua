@@ -1,10 +1,17 @@
+--  ___              _    _     _                 _ 
+-- |_ _|_ __ ___    / \  (_) __| | __ _ _ __     | |
+--  | || '_ ` _ \  / _ \ | |/ _` |/ _` | '_ \ _  | |
+--  | || | | | | |/ ___ \| | (_| | (_| | | | | |_| |
+-- |___|_| |_| |_/_/   \_\_|\__,_|\__,_|_| |_|\___/ 
+-- 
+
 local Prefix = "^4[AJ:DeathSystem]^0"
+local resourceName = "AJDeathSystem"
 local Version = "1.0.0"
 
 -- Checks if Script is named AJDeathSystem
 
 Citizen.CreateThread(function()
-    local resourceName = "AJDeathSystem"
     local currentResourceName = GetCurrentResourceName()
 
     if currentResourceName ~= resourceName then
@@ -175,5 +182,5 @@ end)
 -- Credits --
 -- Don't be weird.. Leave my Credits!!
 print(Prefix.." Death System by ImAidanJ")
-print(Prefix.." Discord: https://discord.gg/cGdUjQQnNT")
+print(Prefix.." Discord: https:--discord.gg/cGdUjQQnNT")
 print(Prefix.." Version: "..Version)
