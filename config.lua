@@ -5,45 +5,45 @@
 -- |___|_| |_| |_/_/   \_\_|\__,_|\__,_|_| |_|\___/ 
 -- 
 
-Config {}
 
-Config.Death {
-    ScreenMessage = true, -- Displays DeathMessage on Screen | Chat Message by Default
-    DeathMessage = "Type /respawn to respawn or /revive to revive",
+-- Support: https://discord.gg/cGdUjQQnNT
+
+
+Config = {}
+
+
+Config.EnableAcePerms = true -- Toggle Ace Perms
+Config.DeathMessage = "You have died, Wait 60 seconds to respawn or 120 seconds to revive."
+
+
+Config.Revive = {
+  AcePermString = "AJ.Revive", -- The ACE perm string that will be added to your server.cfg
+  ReviveTime = 120, -- Amount of time before a player can revive (Seconds)
+  ReviveMessage = "You have been revived!",
 }
 
-Config.Revive {
-EnableAcePerms = true, -- Addes ACE perm options for admins to bypass revive timer
-AcePermString = "AJ.Revive", -- The ACE perm string that will be added to your server.cfg
 
-ReviveTime = 120, -- Amount of time before a player can revive (Seconds)
-ReviveMessage = "You have been revived!",
-}
-
-Config.Respawn {
-EnableAcePerms = true, -- Addes ACE perm options for admins to bypass respawn timer
-AcePermString = "AJ.Respawn", -- The ACE perm string that will be added to your server.cfg
-
-RespawnTime = 60, -- Amount of time before a player can respawn (Seconds)
-RespawnMessage = "You have been respawned!",
-}
-
-Config.Locations { -- Spawn Locations for Respawn
+Config.Respawn = {
+  AcePermString = "AJ.Respawn", -- The ACE perm string that will be added to your server.cfg
+  RespawnTime = 60, -- Amount of time before a player can respawn (Seconds)
+  RespawnMessage = "You have been respawned!",
+  Location = {
     {
-    "name": "Spawn1",
-    "x": 123.45,
-    "y": 67.89,
-    "z": 10.11
-  },
-  {
-    "name": "Spawn2",
-    "x": 234.56,
-    "y": 78.91,
-    "z": 20.21
+      "name": "Spawn1",
+      "x": 123.45,
+      "y": 67.89,
+      "z": 10.11
+    },
+    {
+      "name": "Spawn2",
+      "x": 234.56,
+      "y": 78.91,
+      "z": 20.21
+    },
   },
 }
 
-Config.Logs {
+Config.Logs = {
   RespawnLog = true, -- Adds logs for players using /respawn
   ReviveLog = true, -- Adds logs for players using /revive
   AdminRespawnLog = true, -- Adds logs for admins using /adrespawn

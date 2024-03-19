@@ -1,3 +1,11 @@
+--  ___              _    _     _                 _ 
+-- |_ _|_ __ ___    / \  (_) __| | __ _ _ __     | |
+--  | || '_ ` _ \  / _ \ | |/ _` |/ _` | '_ \ _  | |
+--  | || | | | | |/ ___ \| | (_| | (_| | | | | |_| |
+-- |___|_| |_| |_/_/   \_\_|\__,_|\__,_|_| |_|\___/ 
+-- 
+
+
 function text(input)
     SetTextFont(4)
     SetTextProportional(0)
@@ -11,7 +19,7 @@ function text(input)
     DrawText(0.5, 0.9)
 end
 
-function 5mAlert(message)
+function FiveMAlert(message)
     SetTextComponentFormat('STRING')
     AddTextComponentString(message)
     DisplayHelpTextFromStringLabel(0, 0, 1, -1)
@@ -19,7 +27,8 @@ end
 
 function playerDead(null)
     if isPlayerDead == true then
-        5mAlert("/revive to revive | /respawn to respawn")
+        FiveMAlert("/revive to revive | /respawn to respawn")
+        text(Config.DeathMessage)
     end
 end
 
@@ -27,3 +36,7 @@ function GetRandomRespawnCoords()
     local randomIndex = math.random(1, #Config.Locations)
     return Config.Locations[randomIndex]
 end
+
+--[[
+TODO: Make sure GetRandomRespawnCoords is correct
+--]]

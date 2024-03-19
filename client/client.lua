@@ -7,33 +7,51 @@
 
 -- ImAidanJ Information
 local Prefix = "^4[AJ:DeathSystem]^0"
-local resourceName = "AJDeathSystem"
-local Version = "1.0.0"
 
 
 -- VARIBALES
 local isPlayerDead = false
-
 local addIP = Config.Log.IncludeIP
 local addID = Config.Log.IncludeID
 local addLic = Config.Log.IncludeLicense
+local ReviveMessage = Config.Revive.ReviveMessage
+local RespawnMessage = Config.Respawn.RespawnMessage
 
 
  -- Revive Event called when /revive or /adrevive is used
  RegisterNetEvent('AJ:Revive')
  AddEventHandler("AJ:Revive", function()
-
-    -- Revive Logic Here
-
+    local player = GetPlayerPed(-1)
+    local coords = GetEntityCoords(player)
+    isPlayerDead = false
+    SetPlayerInvisibleLocally(player, true)
+    Citizen.Wait(200)
+    ClearPedTasks(player)
+    SetPlayerInvisibleLocally(player, false)
+    SetEntityCoordsNoOffset(player, coords.x, coords.y, coords.z, false, false, false, true)
+    NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, true, false)
+    SetEntityHealth(player, 200)
+    Citizen.Wait(500)
+    TriggerClientEvent("chat:addMessage", source, { template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(255, 255, 0, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>',
+    args = {ReviveMessage}})
  end)
  
 
  -- Respawn Event called when /respawn or /adrespawn is used
  RegisterNetEvent('AJ:Respawn')
  AddEventHandler("AJ:Respawn", function()
-
-    -- Respawn Logic Here
-
+    local player = GetPlayerPed(-1)
+    isPlayerDead = false
+    DoScreenFadeOut(3000)
+    Citizen.Wait(3000)
+    SetEntityHealth(player, 200)
+    --Add a way for random hospital spawn
+    DoScreenFadeIn(3000)
+    FreezeEntityPosition(player, false)
+    ResetPedVisibleDamage(player)
+    Citizen.Wait(500)
+    TriggerClientEvent("chat:addMessage", source, { template = '<div style="padding: 0.5vw; text-align: center; margin: 0.5vw; background-color: rgba(255, 255, 0, 0.6); border-radius: 3px; color: white;"><b>{0}</b></div>',
+    args = {RespawnMessage}})
  end)
 
 
@@ -68,3 +86,7 @@ local addLic = Config.Log.IncludeLicense
      PerformHttpRequest(Config.Log.Webhook, function(statusCode, response, headers)
      end, 'POST', json.encode({embeds = {embed}}), { ['Content-Type'] = 'application/json' })
  end)
+
+ --[[
+TODO: Add random coords index to respawn command(Line 48)
+ --]]
