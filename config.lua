@@ -9,7 +9,7 @@ Config {}
 
 Config.Death {
     ScreenMessage = true, -- Displays DeathMessage on Screen | Chat Message by Default
-    DeathMessage = "You have died!! You may respawn in 60 seconds or revive in 120 seconds.",
+    DeathMessage = "Type /respawn to respawn or /revive to revive",
 }
 
 Config.Revive {
