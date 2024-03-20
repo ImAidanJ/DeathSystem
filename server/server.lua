@@ -6,32 +6,18 @@
 -- 
 
 
--- ImAidanJ Information
-local Prefix = "^4[AJ:DeathSystem]^0"
-local resourceName = "AJDeathSystem"
-local Version = "1.0.0"
+-- VARIBLES
+local Prefix = Function.Prefix
+local resourceName = Function.ResourceName
+local version = Function.Version
 
 
--- Debug Mode
-local Debug = true
-
-
- -- Check to see if script is named properly
+-- Run Checks
 Citizen.CreateThread(function()
-    local currentResourceName = GetCurrentResourceName()
-    local newVersion = "1.0.0" -- Input Method Here
 
-    if currentResourceName ~= resourceName then
-        print("^1[ERROR]^7 Incorrect resource name detected. Shutting down the resource...")
-        print("^1[ERROR]^7 Resource must be named 'AJDeathSystem' to work.")
-        StopResource(currentResourceName)
-        return
-    end
+    checkName()
+    checkVersion()
 
-    if Version ~= newVersion then
-        print("^1[WARNING]^7 Death System by ImAidanJ is out of date.")
-        print("^1[WARNING]^7 Download new version here --> https://github.com/ImAidanJ/DeathSystem/")
-    end
 end)
 
 
@@ -82,7 +68,7 @@ RegisterCommand("adrevive", function(source, args, rawCommand)
     end
 end, false)
 
-if Debug == true then
+if Debug.Enabled then
     RegisterCommand("die", function(source, args, rawCommand)
         isPlayerDead == true
     end, false)
@@ -91,10 +77,5 @@ end
 
 -- Credits --
 -- Don't be weird.. Leave my Credits!!
-print(Prefix.." Death System by ImAidanJ")
-print(Prefix.." Discord: discord.gg/cGdUjQQnNT")
-print(Prefix.." Version: "..Version)
-
---[[
-TODO: Add version check method(Line 22) | Add ACE Perms to Admin Commands(Lines 62 & 74)
---]]
+print(Prefix.." "..resourceName.." by ImAidanJ\nCurrent Version: "..version)
+print(Prefix.." Discord: https://discord.gg/cGdUjQQnNT")

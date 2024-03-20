@@ -12,9 +12,8 @@ fx_version 'cerulean'
 game 'gta5'
 
 author 'ImAidanJ'
-description 'FiveM Death System'
+description 'Death System for FiveM'
 url 'https://github.com/ImAidanJ/DeathSystem'
-version '1.0.0'
 
 client_scripts {
     'config.lua',
