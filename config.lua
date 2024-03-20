@@ -49,7 +49,7 @@ Config.Logs = {
   AdminRespawnLog = true, -- Adds logs for admins using /adrespawn
   AdminReviveLog = true, -- Adds logs for admins using /adrevive
 
-  Webhook = "WEBHOOK_HERE" -- Paste your discord webhook here for logs
+  Webhook = "WEBHOOK_HERE", -- Paste your discord webhook here for logs
   IncludeIP = true, -- Include players IP in the log embed
   IncludeID = true, -- Include players ID in the log embed
   IncludeLicense = true, -- Include players license in the log embed
