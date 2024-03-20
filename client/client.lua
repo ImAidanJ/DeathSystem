@@ -5,9 +5,6 @@
 -- |___|_| |_| |_/_/   \_\_|\__,_|\__,_|_| |_|\___/ 
 -- 
 
--- ImAidanJ Information
-local Prefix = "^4[AJ:DeathSystem]^0"
-
 
 -- VARIBALES
 local isPlayerDead = false
@@ -45,7 +42,8 @@ local RespawnMessage = Config.Respawn.RespawnMessage
     DoScreenFadeOut(3000)
     Citizen.Wait(3000)
     SetEntityHealth(player, 200)
-    --Add a way for random hospital spawn
+    local respawnLocation = GetRandomRespawnLocation()
+    SetEntityCoords(player, respawnLocation.x, respawnLocation.y, respawnLocation.z, false, false, false, false)
     DoScreenFadeIn(3000)
     FreezeEntityPosition(player, false)
     ResetPedVisibleDamage(player)
